@@ -1,0 +1,55 @@
+# Full stack: Frontend + Backend + MongoDB
+# Run from repo root: docker compose up --build
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: classic-jazz-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: classic-jazz-backend
+    ports:
+      - "8000:8000"
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: classic-jazz-frontend
+    ports:
+      - "8080:8080"
+    environment:
+      BACKEND_URL: http://backend:8000
+      # Write user_context.json to mounted dir so it's visible on the host
+      CLASSICJAZZ_USER_CONTEXT_FILE: /app/data/user_context.json
+    volumes:
+      - frontend_user_context_data:/app/data
+    depends_on:
+      - backend
+
+  loadgen:
+    build:
+      context: .
+      dockerfile: load-gen/Dockerfile
+    container_name: classic-jazz-loadgen
+    ipc: host
+    init: true
+    environment:
+      BASE_URL: http://frontend:8080
+    depends_on:
+      - frontend
+
+volumes:
+  mongodb_data:
+  frontend_user_context_data:

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${pageTitle} ?: 'Classic Jazz'">Classic Jazz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/dist/classic-jazz.min.css}"/>
+</head>
+<body>
+    <header class="site-header">
+        <a th:href="@{/}" class="logo">Classic Jazz</a>
+        <nav>
+            <a th:href="@{/}">Catalog</a>
+            <a th:href="@{/cart}">Cart</a>
+            <a th:if="${session.customerId == null}" th:href="@{/auth}">Sign in</a>
+            <form th:if="${session.customerId != null}" th:action="@{/auth/signout}" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.85rem;">Sign out</button>
+            </form>
+        </nav>
+    </header>
+    <main class="main-content">
+        <div th:if="${authMessage}" class="flash flash-success" th:text="${authMessage}"></div>
+        <div th:if="${authError}" class="flash flash-error" th:text="${authError}"></div>
+        <div th:if="${added}" class="flash flash-success" th:text="'Added to cart: ' + ${added}"></div>
+        <div th:if="${checkoutSuccess}" class="flash flash-success">Order placed! Order ID: <span th:text="${orderId}"></span></div>
+        <div th:if="${checkoutError}" class="flash flash-error" th:text="${checkoutError}"></div>
+        <th:block th:replace="${content}">Page content</th:block>
+    </main>
+    <footer class="site-footer">
+        <p>Classic Jazz — vinyl for the soul.</p>
+    </footer>
+</body>
+</html>

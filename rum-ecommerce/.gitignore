@@ -1,0 +1,15 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+*.egg-info/
+.eggs/
+build/
+
+# Frontend: Webpack output (minified CSS + JS) and Node dependencies
+frontend/src/main/resources/static/dist/
+frontend/node_modules/
+
+# Frontend: generated user context for RUM (contains user id/name/email)
+user_context.json

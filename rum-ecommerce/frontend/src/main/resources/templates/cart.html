@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content})}">
+<head>
+    <title>Cart — Classic Jazz</title>
+</head>
+<body>
+<th:block th:fragment="content">
+<section class="cart-page">
+    <h1>Your cart</h1>
+    <th:block th:if="${#lists.isEmpty(cart.items)}">
+        <p class="cart-empty">Your cart is empty. <a th:href="@{/}">Browse the catalog</a>.</p>
+    </th:block>
+    <th:block th:unless="${#lists.isEmpty(cart.items)}">
+        <ul class="cart-list">
+            <li th:each="item : ${cart.items}" class="cart-item">
+                <span class="cart-item-title" th:text="${item.title}">Title</span>
+                <span class="cart-item-qty"><span th:text="${item.quantity}">1</span> × $<span th:text="${#numbers.formatDecimal(item.price, 1, 'POINT', 2, 'COMMA')}">0.00</span></span>
+                <span class="cart-item-total">$<span th:text="${#numbers.formatDecimal(item.lineTotal, 1, 'POINT', 2, 'COMMA')}">0.00</span></span>
+            </li>
+        </ul>
+        <p class="cart-grand-total">Total: <strong>$<span th:text="${#numbers.formatDecimal(cart.total, 1, 'POINT', 2, 'COMMA')}">0.00</span></strong></p>
+        <form th:action="@{/cart/checkout}" method="post" class="checkout-form">
+            <h2>Complete your order</h2>
+            <p class="checkout-hint" th:if="${checkoutEmail != null}">Signed in: your details are pre-filled. You can edit if needed.</p>
+            <label for="checkout-first">First name</label>
+            <input type="text" id="checkout-first" name="firstName" th:value="${checkoutFirstName}" required/>
+            <label for="checkout-last">Last name</label>
+            <input type="text" id="checkout-last" name="lastName" th:value="${checkoutLastName}" required/>
+            <label for="checkout-email">Email</label>
+            <input type="email" id="checkout-email" name="email" th:value="${checkoutEmail}" required/>
+            <button type="submit" class="btn btn-primary">Place order</button>
+        </form>
+    </th:block>
+</section>
+</th:block>
+</body>
+</html>

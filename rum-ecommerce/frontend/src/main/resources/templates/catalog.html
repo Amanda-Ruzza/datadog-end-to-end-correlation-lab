@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content})}">
+
+<head>
+    <title>Catalog — Classic Jazz</title>
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <section class="catalog-page">
+            <h1>Classic Jazz Vinyl</h1>
+            <p class="tagline">Six of the most influential jazz records that changed contemporary music to add on your
+                collection.</p>
+            <div class="album-grid">
+                <article th:each="album : ${albums}" class="album-card">
+                    <div class="album-cover">
+                        <img th:src="${album.imageUrl}" th:alt="${album.title}" loading="lazy" width="400"
+                            height="400" />
+                    </div>
+                    <div class="album-info">
+                        <h2 class="album-artist" th:text="${album.artist}">Artist</h2>
+                        <h3 class="album-title" th:text="${album.title}">Title</h3>
+                        <p class="album-sku" th:text="${'SKU: ' + album.sku}">SKU</p>
+                        <p class="album-price"
+                            th:text="${'$' + #numbers.formatDecimal(album.price, 1, 'POINT', 2, 'COMMA')}">$0.00</p>
+                        <form th:action="@{/cart/add}" method="post" class="add-to-cart" data-add-to-cart>
+                            <input type="hidden" name="sku" th:value="${album.sku}" />
+                            <label th:for="'qty-' + ${album.sku}">Qty</label>
+                            <input type="number" th:id="'qty-' + ${album.sku}" name="quantity" value="1" min="1"
+                                max="99" class="qty-input" />
+                            <button type="submit" class="btn btn-primary">Add to cart</button>
+                        </form>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <script th:src="@{/dist/bundle.min.js}"></script>
+    </th:block>
+</body>
+
+</html>

@@ -1,0 +1,410 @@
+/**
+ * Classic Jazz — dark theme, simple typography.
+ * Single stylesheet for the e-commerce frontend.
+ */
+
+/* ----- Variables ----- */
+:root {
+  --bg: #0f0e0f;
+  --bg-elevated: #1a1819;
+  --bg-card: #1f1d1e;
+  --text: #e8e4e0;
+  --text-muted: #9a9590;
+  --accent: #c9a227;
+  --accent-dim: #8b7322;
+  --border: #2d2a2b;
+  --success: #4a7c59;
+  --error: #b85450;
+  --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-serif: "Cormorant Garamond", "Georgia", serif;
+  --space: 1rem;
+  --radius: 6px;
+  --radius-lg: 10px;
+}
+
+/* ----- Base ----- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ----- Typography ----- */
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  margin-top: 0;
+  letter-spacing: 0.02em;
+}
+
+h1 { font-size: 1.875rem; margin-bottom: 0.5rem; }
+h2 { font-size: 1.35rem; margin-bottom: 0.5rem; }
+h3 { font-size: 1.1rem; margin-bottom: 0.35rem; }
+
+p {
+  margin: 0 0 var(--space);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ----- Layout ----- */
+.site-header {
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space) 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space);
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.logo:hover {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.site-header nav {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.site-header nav a {
+  color: var(--text-muted);
+}
+
+.site-header nav a:hover {
+  color: var(--accent);
+}
+
+.main-content {
+  flex: 1;
+  padding: 1.5rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.site-footer {
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  padding: var(--space) 1.5rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* ----- Flashes ----- */
+.flash {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  margin-bottom: var(--space);
+}
+
+.flash-success {
+  background: rgba(74, 124, 89, 0.2);
+  border: 1px solid var(--success);
+  color: #b8ddc4;
+}
+
+.flash-error {
+  background: rgba(184, 84, 80, 0.2);
+  border: 1px solid var(--error);
+  color: #e8b4b2;
+}
+
+/* ----- Buttons & inputs ----- */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.btn-primary:hover {
+  background: var(--accent-dim);
+  color: var(--text);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ----- Catalog page ----- */
+.catalog-page .tagline {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.album-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.album-cover {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+
+.album-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.album-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.album-artist {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.album-title {
+  color: var(--text);
+}
+
+.album-sku {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.album-price {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0.25rem 0 0.5rem;
+}
+
+.add-to-cart {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.add-to-cart .qty-input {
+  width: 4rem;
+  margin: 0;
+}
+
+.add-to-cart .btn {
+  margin-left: auto;
+}
+
+/* ----- Auth page ----- */
+.auth-page h1 {
+  margin-bottom: 1.5rem;
+}
+
+.auth-forms {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  max-width: 640px;
+}
+
+.auth-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.auth-box h2 {
+  margin-bottom: 1rem;
+  font-size: 1.15rem;
+}
+
+.auth-form label {
+  margin-top: 0.75rem;
+}
+
+.auth-form label:first-of-type {
+  margin-top: 0;
+}
+
+.auth-form button {
+  margin-top: 1rem;
+}
+
+/* ----- Cart page ----- */
+.cart-empty {
+  color: var(--text-muted);
+}
+
+.cart-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item-total {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.cart-grand-total {
+  font-size: 1.15rem;
+  margin-bottom: 1.5rem;
+}
+
+.cart-grand-total strong {
+  color: var(--accent);
+}
+
+.checkout-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  max-width: 360px;
+}
+
+.checkout-form h2 {
+  margin-bottom: 1rem;
+  font-size: 1.15rem;
+}
+
+.checkout-hint {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 0 0.75rem;
+}
+
+.checkout-form button {
+  margin-top: 0.75rem;
+}
+
+/* ----- Error page ----- */
+.error-page {
+  max-width: 480px;
+}
+
+.error-page h1 {
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  margin-bottom: 0.5rem;
+}
+
+.error-detail {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  word-break: break-word;
+}
+
+.error-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.error-actions .btn {
+  text-decoration: none;
+}

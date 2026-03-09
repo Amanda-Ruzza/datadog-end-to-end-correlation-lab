@@ -1,0 +1,12 @@
+{
+  "name": "classic-jazz-loadgen",
+  "version": "0.1.0",
+  "description": "Playwright load generator for Classic Jazz (fake traffic for Datadog)",
+  "type": "module",
+  "scripts": {
+    "run": "node run.js"
+  },
+  "dependencies": {
+    "playwright": "1.58.2"
+  }
+}

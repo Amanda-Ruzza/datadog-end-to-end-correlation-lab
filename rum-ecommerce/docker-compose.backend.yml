@@ -1,0 +1,26 @@
+# Phase 1: MongoDB + FastAPI backend only
+# Run from repo root: docker compose -f docker-compose.backend.yml up --build
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: classic-jazz-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: classic-jazz-backend
+    ports:
+      - "8000:8000"
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb_data:
