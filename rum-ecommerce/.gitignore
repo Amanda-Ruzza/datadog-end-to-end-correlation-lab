@@ -13,3 +13,6 @@ frontend/node_modules/
 
 # Frontend: generated user context for RUM (contains user id/name/email)
 user_context.json
+
+# Cursor Plans
+.cursor/plans/
